@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.cos.blog.action.Action;
 import com.cos.blog.action.user.UsersJoinAction;
 import com.cos.blog.action.user.UsersJoinProcAction;
+import com.cos.blog.action.user.UsersLoginAction;
+import com.cos.blog.action.user.UsersLoginProcAction;
+import com.cos.blog.action.user.UsersLogoutAction;
 
 // http://localhost:8000/blog/user
 @WebServlet("/user")
@@ -30,7 +33,6 @@ public class UsersController extends HttpServlet {
 		doProcess(request, response);
 	}
 	
-	// 어떠한 형식의 요청이 오든 여기서 처리
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// http://localhost:8000/blog/user?cmd=join
 		String cmd = request.getParameter("cmd");
@@ -54,11 +56,18 @@ public class UsersController extends HttpServlet {
 			// 회원 삭제를 진행 한 후 -> 로그아웃을 하고 -> index.jsp로 이동
 		}else if(cmd.equals("login")) {
 			// 회원 로그인 페이지로 이동
+			return new UsersLoginAction();
 		}else if(cmd.equals("loginProc")) {
 			// 회원 로그인을 수행한 후 -> 세션에 등록을 하고 -> index.jsp로 이동
+			return new UsersLoginProcAction();
+		}else if(cmd.equals("logout")) {
+			return new UsersLogoutAction();
 		}
 		return null;
 	}
 	
+
 }
+
+
 
