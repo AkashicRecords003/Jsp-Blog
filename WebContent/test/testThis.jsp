@@ -10,6 +10,7 @@
 </head>
 <body>
 <button id="btn">클릭</button>
+<button id="btn2">클릭2</button>
 <script>
 	var t1 = this;
 	console.log(t1);
@@ -24,16 +25,21 @@
 		}
 	};
 	car.move();
+	let _ddd;
 	
-	$('#btn').on('click', function(){
-		var _this = this;
-		var hello = function(){
-			console.log("inner 함수");	
-			console.log(_this);
-		}
+	$('#btn').click(function(){
+		_ddd = this;
+		var hello = () => {
+				console.log("inner 함수");	
+				console.log(this);
+		};
 		
-		hello();
 	});
+	$('#btn2').click(function(){
+		console.log(_ddd);
+		
+	});
+	
 	
 </script>
 </body>

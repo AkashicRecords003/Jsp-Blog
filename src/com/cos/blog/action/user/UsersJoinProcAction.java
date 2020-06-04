@@ -20,14 +20,15 @@ public class UsersJoinProcAction implements Action{
 		// 0. 유효성 검사
 		if
 		(
-				request.getParameter("username").equals("") ||
 				request.getParameter("username") == null ||
-				request.getParameter("password").equals("") ||
+				request.getParameter("username").equals("") ||
 				request.getParameter("password") == null ||
-				request.getParameter("email").equals("") ||
+				request.getParameter("password").equals("") ||
 				request.getParameter("email") == null ||
-				request.getParameter("address").equals("") ||
-				request.getParameter("address") == null
+				request.getParameter("email").equals("") ||
+				request.getParameter("address") == null ||
+				request.getParameter("address").equals("")
+				
 		) {
 			return;
 		}
@@ -47,6 +48,9 @@ public class UsersJoinProcAction implements Action{
 				.address(address)
 				.userRole(userRole)
 				.build();
+		
+		
+		
 		
 		// 3. DB연결 - UsersRepository의 save() 호출
 		UsersRepository usersRepository = 
