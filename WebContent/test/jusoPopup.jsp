@@ -11,7 +11,6 @@
 	<title>Juso.kr 팝업</title>
 </head>
 <script>
-
 function init(){
 	var url = location.href;
 	var confmKey = "devU01TX0FVVEgyMDIwMDYwMjA5NDkwMjEwOTgyMDE=";
@@ -30,7 +29,6 @@ function init(){
 }
 </script>
 <body onload="init()">
-
 	<form id="form" name="form" method="post">
 		<input type="hidden" id="confmKey" name="confmKey" value=""/>
 		<input type="hidden" id="returnUrl" name="returnUrl" value=""/>

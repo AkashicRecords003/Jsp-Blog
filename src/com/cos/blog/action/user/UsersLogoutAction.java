@@ -18,7 +18,8 @@ public class UsersLogoutAction implements Action{
 		session.invalidate();
 		
 		// session.removeAttribute("principal");
-		Script.href("로그아웃 성공", "/blog/board?cmd=home", response);
+		Script.href("로그아웃 성공", "index.jsp", response);
 	}
 	
 }
+

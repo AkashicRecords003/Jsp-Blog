@@ -8,13 +8,11 @@
 function goPopup(){
 	var pop = window.open("/blog/test/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 }
-
 function jusoCallBack(roadFullAddr){
 	var tfAddress = document.querySelector("#roadFullAddr");
 	tfAddress.value = roadFullAddr;
 	// document.form.roadFullAddr.value = roadFullAddr;		
 }
-
 </script>
 <title>주소 입력 샘플</title>
 </head>
