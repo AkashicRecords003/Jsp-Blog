@@ -10,7 +10,7 @@ public class Script {
 	public static void getMessage(String msg, HttpServletResponse response) {
 		try {
 			response.setCharacterEncoding("utf-8");
-			response.setContentType("text/html; charset=utf-8");
+			response.setContentType("text/plain; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			 
 			out.println("<h1>"+msg+"</h1>");
@@ -22,7 +22,7 @@ public class Script {
 	public static void back(String msg, HttpServletResponse response) {
 		try {
 			response.setCharacterEncoding("utf-8");
-			response.setContentType("text/html; charset=utf-8");
+			response.setContentType("appliction/json; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			 
 			out.println("<script>");
