@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config xmlns="http://www.nhncorp.com/lucy-xss"    >
-    <elementRule>
+
+<config xmlns="http://www.nhncorp.com/lucy-xss"
+	extends="lucy-xss-default-sax.xml">
+
+	<elementRule>
         <element name="p"/>
         <element name="a" />
         <element name="abbr"/>
@@ -47,7 +50,7 @@
         <element name="hr"/>
         <element name="html"/>
         <element name="i"/>
-        <element name="iframe"/>
+        <!-- <element name="iframe"/> -->
         <element name="img"/>
         <element name="input"/>
         <element name="ins"/>
@@ -146,5 +149,7 @@
         </attribute>
         <attribute name="style" disable="false" exceptionTagList="a"/> <!-- 2013.12.24 수정 : A 태그는 style 속성에 의한 우회 공격 이슈로 style 속성을 배제힌다. -->
     </attributeRule>
+
+
 </config>
 
