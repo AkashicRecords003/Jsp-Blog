@@ -2,8 +2,6 @@ package com.cos.blog.model;
 
 import java.sql.Timestamp;
 
-import com.cos.blog.model.Users.UsersBuilder;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
