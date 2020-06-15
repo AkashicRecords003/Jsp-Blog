@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
 
 public class Script {
-	
+
 	public static void outText(String msg, HttpServletResponse response) {
 		try {
 			response.setCharacterEncoding("utf-8");
@@ -17,7 +17,7 @@ public class Script {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void outJson(String msg, HttpServletResponse response) {
 		try {
 			response.setCharacterEncoding("utf-8");
@@ -28,25 +28,25 @@ public class Script {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void getMessage(String msg, HttpServletResponse response) {
 		try {
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
-			 
+
 			out.println("<h1>"+msg+"</h1>");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void back(String msg, HttpServletResponse response) {
 		try {
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
-			 
+
 			out.println("<script>");
 			out.println("alert('"+msg+"');");
 			out.println("history.back();");
@@ -55,13 +55,13 @@ public class Script {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void href(String msg, String uri, HttpServletResponse response) {
 		try {
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
-			 
+
 			out.println("<script>");
 			out.println("alert('"+msg+"');");
 			out.println("location.href='"+uri+"';");
@@ -70,7 +70,7 @@ public class Script {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void href(String uri, HttpServletResponse response) {
 		try {
 			response.setCharacterEncoding("utf-8");

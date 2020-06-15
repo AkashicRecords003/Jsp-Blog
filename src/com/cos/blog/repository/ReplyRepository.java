@@ -12,21 +12,21 @@ import com.cos.blog.model.Reply;
 
 // DAO
 public class ReplyRepository {
-	
+
 	private static final String TAG = "ReplyRepository : ";
 	private static ReplyRepository instance = new ReplyRepository();
 	private ReplyRepository() {}
 	public static ReplyRepository getInstance() {
 		return instance;
 	}
-	
+
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
-	
+
 	public int save(Reply reply) {
 		final String SQL = "INSERT INTO reply(id, boardId, userId, content, createDate) VALUES(reply_seq.nextval, ?, ?, ?, sysdate)";
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -43,15 +43,15 @@ public class ReplyRepository {
 		}
 		return -1;
 	}
-	
+
 	public int update(Reply reply) {
 		final String SQL = "";
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
-			
+
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,15 +62,14 @@ public class ReplyRepository {
 
 		return -1;
 	}
-	
+
 	public int deleteById(int id) {
-		final String SQL = "";
-		
+		final String SQL = "DELETE FROM reply WHERE id = ?";
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			// 물음표 완성하기
-			
+			pstmt.setInt(1, id);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,7 +80,7 @@ public class ReplyRepository {
 
 		return -1;
 	}
-	
+
 	public List<ReplyResponseDto> findAll(int boardId) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT r.id, r.userId, r.boardId, r.content, r.createDate, ");
@@ -92,13 +91,13 @@ public class ReplyRepository {
 		sb.append("ORDER BY r.id DESC");
 		final String SQL = sb.toString();
 		List<ReplyResponseDto> replyDtos = new ArrayList<>();
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardId);
 			rs = pstmt.executeQuery();
-			
+
 			while(rs.next()) {
 				Reply reply = Reply.builder()
 						.id(rs.getInt(1))
@@ -114,7 +113,7 @@ public class ReplyRepository {
 						.build();
 				replyDtos.add(replyDto);
 			}
-			
+
 			return replyDtos;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,7 +124,7 @@ public class ReplyRepository {
 
 		return null;
 	}
-	
+
 	public List<Reply> findAll() {
 		final String SQL = "";
 		List<Reply> replys = new ArrayList<>();
@@ -134,9 +133,9 @@ public class ReplyRepository {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
-			
+
 			// while 돌려서 rs -> java오브젝트에 집어넣기
-			
+
 			return replys;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,18 +146,18 @@ public class ReplyRepository {
 
 		return null;
 	}
-	
+
 	public Reply findById(int id) {
 		final String SQL = "";
 		Reply reply = new Reply();
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
-			
+
 			// if 돌려서 rs -> java오브젝트에 집어넣기
-			
+
 			return reply;
 		} catch (Exception e) {
 			e.printStackTrace();

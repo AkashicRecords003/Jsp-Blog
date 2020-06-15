@@ -5,14 +5,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.nhncorp.lucy.security.xss.XssPreventer;
+import com.nhncorp.lucy.security.xss.XssSaxFilter;
+
 public class HtmlParser {
 	
 	public static String getContentYoutube(String content) {
 		Document doc = Jsoup.parse(content);
 		System.out.println(doc.toString());
 		Elements aTags = doc.select("a");
-		// https://youtu.be/TgOu00Mf3kI
-		// https://www.youtube.com/watch?v=yqtCGojXEpM
+
 		for (Element aTag : aTags) {
 			String href = aTag.attr("href");
 			String youtubeId = null;
@@ -43,7 +45,8 @@ public class HtmlParser {
 		for (Element pTag : pTags) {
 			String text = pTag.text();
 			if(text.length() > 0) {
-				text = text.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+				text = XssPreventer.escape(text);
+				
 				if(text.length() < 11) {
 					return text;
 				}else {
