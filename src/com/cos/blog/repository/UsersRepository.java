@@ -11,22 +11,23 @@ import com.cos.blog.model.Users;
 
 // DAO
 public class UsersRepository {
-	
+
 	private static final String TAG = "UsersRepository : ";
 	private static UsersRepository instance = new UsersRepository();
 	private UsersRepository() {}
 	public static UsersRepository getInstance() {
 		return instance;
 	}
-	
+
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
-	
-	public int findByUsername(String username) {
-		final String SQL = "SELECT count(*) FROM users WHERE username = ?";
+
+	// 수정
+	public Users findByUsername(String username) {
+		final String SQL = "SELECT * FROM users WHERE username = ?";
 		Users user = null;
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -35,7 +36,16 @@ public class UsersRepository {
 			// if 돌려서 rs -> java오브젝트에 집어넣기
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return rs.getInt(1); // 0 or 1
+				user = new Users();
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setEmail(rs.getString("email"));
+				user.setAddress(rs.getString("address"));
+				user.setUserProfile(rs.getString("userProfile"));
+				user.setUserRole(rs.getString("userRole"));
+				user.setCreateDate(rs.getTimestamp("createDate"));
+				
+				return user;
 			}
 
 		} catch (Exception e) {
@@ -45,13 +55,13 @@ public class UsersRepository {
 			DBConn.close(conn, pstmt, rs);
 		}
 
-		return -1;
+		return null;
 	}
-	
+
 	public Users findByUsernameAndPassword(String username, String password) {
 		final String SQL = "SELECT id, username, email, address, userProfile, userRole, createDate FROM users WHERE username = ? AND password = ?";
 		Users user = null;
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -70,7 +80,7 @@ public class UsersRepository {
 				user.setUserRole(rs.getString("userRole"));
 				user.setCreateDate(rs.getTimestamp("createDate"));
 			}
-			
+
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,10 +91,10 @@ public class UsersRepository {
 
 		return null;
 	}
-	
+
 	public int save(Users user) {
 		final String SQL = "INSERT INTO users(id, username, password, email, address, userRole, createDate) VALUES(USERS_SEQ.nextval, ?,?,?,?,?,sysdate)";
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -103,10 +113,10 @@ public class UsersRepository {
 		}
 		return -1;
 	}
-	
+
 	public int update(int id, String userProfile) {
 		final String SQL = "UPDATE users SET userProfile = ? WHERE id = ?";
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -123,10 +133,10 @@ public class UsersRepository {
 
 		return -1;
 	}
-	
+
 	public int update(Users user) {
 		final String SQL = "UPDATE users SET password = ?, email = ?, address = ? WHERE id = ?";
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -145,15 +155,15 @@ public class UsersRepository {
 
 		return -1;
 	}
-	
+
 	public int deleteById(int id) {
 		final String SQL = "";
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
-			
+
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -164,18 +174,18 @@ public class UsersRepository {
 
 		return -1;
 	}
-	
+
 	public List<Users> findAll() {
 		final String SQL = "";
 		List<Users> users = new ArrayList<>();
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
-			
+
 			// while 돌려서 rs -> java오브젝트에 집어넣기
-			
+
 			return users;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -186,11 +196,11 @@ public class UsersRepository {
 
 		return null;
 	}
-	
+
 	public Users findById(int id) {
 		final String SQL = "SELECT * FROM users WHERE id = ?";
 		Users user = null;
-		
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
